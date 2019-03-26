@@ -2,17 +2,11 @@ package framework;
 
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.google.common.base.Function;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
-import org.testng.Assert;
 
 import stepdefinition.SharedSD;
 
@@ -76,43 +70,11 @@ public class BasePage {
 		WebElement element = webAction(hoverOver);
 		actions.moveToElement(element).build().perform();
 	}
-	public List<String>  getTimeScale (List<WebElement> timeList) {
-
-		List<String> actualTimeList = new ArrayList<>();// etot list imeet tolko vremya, t.e numbers
-
-		for (WebElement element : timeList) {
-			actualTimeList.add(element.getText());
-			System.out.println("LIST DATA: " + element.getText());
-		}
-		return actualTimeList;
-	}
-
-	///\gets the current time from my computer and creates and array that has time
-	 //public void verifyTimeIncremented (){
-	public List<String> createNewListFromComputerTime (){
-		 Date date = null;
-		 SimpleDateFormat formater = new SimpleDateFormat("ha");
-		 Calendar cal =Calendar.getInstance();
-		 cal.setTime(new Date());
-		 List<String> expectedTimeList = new ArrayList<>();
-
-		 for (int i = 0; i < 11; i++){
-		 	cal.add(Calendar.HOUR_OF_DAY, 2);
-		 	date = cal.getTime();
-		 	expectedTimeList.add(formater.format(date).toLowerCase());
-
-		 }
-		 return expectedTimeList;
-
-	 }
-
-	public boolean verifyTimeIncremented (List<String> computerTimeList, List<String> websiteTimeList){
-		//compare two lists
-		return websiteTimeList.equals(computerTimeList);
-	}
-
-
 }
+
+
+
+
 
 
 

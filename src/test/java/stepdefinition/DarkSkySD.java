@@ -1,28 +1,31 @@
 package stepdefinition;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
-import framework.DarkSkyHomePage;
+import framework.DarkSkyMainPage;
 import java.util.List;
 import org.testng.Assert;
 
 public class DarkSkySD {
 
-  private DarkSkyHomePage darkSkyHomePage = new DarkSkyHomePage();
-
-  List<String> list1 = darkSkyHomePage.getTimeScale();
-  List<String> list2 = darkSkyHomePage.createNewListFromComputerTime();
+  private DarkSkyMainPage darkSkyMainPage = new DarkSkyMainPage();
+  List<String> list1 = darkSkyMainPage.getTimeScale();
+  List<String> list2 = darkSkyMainPage.createNewListFromComputerTime();
 
   @Given ("^I am on Darksky home page$")
-  public void setDarkSkyHomePage(){
+  public void iAmOnDarkSkyHomePage(){
 
-    Assert.assertEquals(SharedSD.getDriver().getCurrentUrl(), "https://www.darksky.net/");
+    Assert.assertTrue(darkSkyMainPage.isDarkSkyTitleDisplayed());
   }
-  @Then("^I verify timeline is displayed with two hours incremented$")
+  @And("^I verify timeline is displayed with two hours incremented$")
   public void verifyIncrementationOfHours(){
 
-    Assert.assertTrue(darkSkyHomePage.verifyTimeIncremented(list2, list1));
+    Assert.assertTrue(darkSkyMainPage.verifyTimeIncremented(list2, list1));
     //Assert.assertEquals(list2, list1);
-
   }
+  @Then("^I verify lowest and highest temp is displayed correctly$")
+  public void isLowestAndHighestTemperatureDisplayedCorrectly() throws InterruptedException {
+    Assert.assertTrue(darkSkyMainPage.isTemperaturDisplayedCorrectly());
+}
 }
